@@ -1,3 +1,11 @@
+#뉴스 읽어주는 딥러닝(잠꼬대 하는 손석희 음성합성 딥러닝 만들기) # Window10 버전 
+
+
+
+
+
+
+
 # Multi-Speaker Tacotron in TensorFlow
 
 TensorFlow implementation of:

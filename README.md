@@ -1,42 +1,20 @@
-# 뉴스 읽어주는 딥러닝(잠꼬대 하는 손석희 음성합성 딥러닝 만들기) 
-# Window10 버전 
+# 뉴스 읽어주는 딥러닝(잠꼬대 하는 손석희 만들기) 
 
+* 기존 carpedm20(김태훈님)의 github를 바탕으로 Window10에 맞게 코드를 수정했습니다.  
+* 손석희 앵커 목소리로  모델 생성에는 성공했으나, 결과적으로 깨끗한 음성이 아니라 잠꼬대를 하는 것과 같은 우물우물한 목소리가 출력되었습니다. 결과가 좋지 않은 이유를 아래에 함께 서술하였습니다. 
 
-
-
-
-
-
-# Multi-Speaker Tacotron in TensorFlow
-
-TensorFlow implementation of:
-
-- [Deep Voice 2: Multi-Speaker Neural Text-to-Speech](https://arxiv.org/abs/1705.08947)
-- [Listening while Speaking: Speech Chain by Deep Learning](https://arxiv.org/abs/1707.04879)
-- [Tacotron: Towards End-to-End Speech Synthesis](https://arxiv.org/abs/1703.10135)
-
-Samples audios (in Korean) can be found [here](http://carpedm20.github.io/tacotron/en.html).
-
-![model](./assets/model.png)
-
-
-## Prerequisites
-
+## 필요한 프로그램 
 - Python 3.6+
 - FFmpeg
-- [Tensorflow 1.3](https://www.tensorflow.org/install/)
+- [Tensorflow 1.3](그냥 pip install로 설치할 경우 avx미지원으로 인한 에러가 발생합니다. 코드는 돌아가지만 step별 속도가 눈에 띄게 느리기 때문에 bazel을 이용해서 직접 다운을 받는 것이 좋습니다. 또한 이러한 문제는 CPU를 사용할 때 발생하는 문제임으로 tensorflow-gpu를 사용하시면 이러한 에러가 나와도 무시하고 진행해도 좋다고 합니다.)
 
 
-## Usage
+## 모형 만들어보기 
 
-### 1. Install prerequisites
-
-After preparing [Tensorflow](https://www.tensorflow.org/install/), install prerequisites with:
-
+### 1. 환경 생성과 패키지 설치 
+    
     pip3 install -r requirements.txt
-    python -c "import nltk; nltk.download('punkt')"
-
-If you want to synthesize a speech in Korean dicrectly, follow [2-3. Download pre-trained models](#2-3-download-pre-trained-models).
+    python -c "import nltk; nltk.download('punkt')" 
 
 
 ### 2-1. Generate custom datasets

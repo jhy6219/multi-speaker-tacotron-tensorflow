@@ -11,60 +11,24 @@
 
 ## 모형 만들어보기 
 
+### 0. 터미널(윈도우에서는 cmd)에서 코드를 받아옵니다.(코드가 다 저장되어있느 상태이기 때문에, 모두 터미널에서 실행만 시켜주면 됩니다.)
+물론 깃을 한번도 설치한적이 없으시다면, 설치하셔야합니다. 윈도우의 경우는 따로 설치해야하며, 맥을 사용하는 경우는 아마 이미 설치되어있을 것입니다.
+
+    git init 
+    git pull https://github.com/carpedm20/multi-Speaker-tacotron-tensorflow
+
 ### 1. 환경 생성과 패키지 설치 
-    
+필요한 어마무시한 패키지들을 설치해줍니다. 친절하게도 이미 `requirements`에 버전까지 저장되어있습니다. 버전은 꼬일수 있으니 명시된대로 사용해주셔야합니다. 맘대로 업그레이드를 하시면 중간에 코드가 돌아가지 않을 가능성이 매우 큽니다. `nltk`는 자연어 처리를 위한 파이썬 패키지 입니다.  
+
     pip install -r requirements.txt
     python -c "import nltk; nltk.download('punkt')" 
 
 
-### 2-1. Generate custom datasets
+### 2-1. 데이터 다운로드
 
-아래와 같은 형식으로 데이터가 폴더에 정리됩니다.
+다음(daum)에 올라온 손석희 앵커브리핑 영상을 기반으로 tacotron모형에 대입해보고자 합니다. 손석희 앵커브리핑 데이터를 사용하는 이유는 대부분 손석희 앵커가 단독으로 말하기 때문입니다. (그러나 음악이 나오거나 영상을 틀면서 말하는 경우도 많기는 합니다...)
 
-The `datasets` directory should look like:
-
-    datasets
-    ├── son
-    │   ├── alignment.json
-    │   └── audio
-    │       ├── 1.mp3
-    │       ├── 2.mp3
-    │       ├── 3.mp3
-    │       └── ...
-    └── YOUR_DATASET
-        ├── alignment.json
-        └── audio
-            ├── 1.mp3
-            ├── 2.mp3
-            ├── 3.mp3
-            └── ...
-
-and `YOUR_DATASET/alignment.json` should look like:
-
-    {
-        "./datasets/YOUR_DATASET/audio/001.mp3": "My name is Taehoon Kim.",
-        "./datasets/YOUR_DATASET/audio/002.mp3": "The buses aren't the problem.",
-        "./datasets/YOUR_DATASET/audio/003.mp3": "They have discovered a new particle.",
-    }
-
-After you prepare as described, you should genearte preprocessed data with:
-
-    python -m datasets.generate_data ./datasets/YOUR_DATASET/alignment.json
-
-
-### 2-2. Generate Korean datasets
-
-Follow below commands. (explain with `son` dataset)
-
- 음성파일을 다운로드하여 문장단위로 나누고 음성인식을 해주어 진행할 것입니다.
-
-0. To automate an alignment between sounds and texts, prepare `GOOGLE_APPLICATION_CREDENTIALS` to use [Google Speech Recognition API](https://cloud.google.com/speech/). To get credentials, read [this](https://developers.google.com/identity/protocols/application-default-credentials).
-
-       export GOOGLE_APPLICATION_CREDENTIALS="YOUR-GOOGLE.CREDENTIALS.json"
-
-1. Download speech(or video) and text. 
-
-datasets/son/download.py코드를 실행해주는 코드로 손석희 앵커의 브리핑 영상과 함께 해당 영상에 따른 음성파일과 스크립트가 동시에 저장됩니다. 
+1. 다음의 코드(datasets/son/download.py코드를 실행해주는 코드)로 다음(daum)에 올라온 손석희 앵커브리핑 영상 wav파일과 해당 영상에서 추출된 오디오 mp3파일 그리고 대본(스크립트)을 얻을 수 있습니다.(영상은 3~5분정도입니다.)
 
        python -m datasets.son.download
 
@@ -75,6 +39,22 @@ datasets/son/download.py코드를 실행해주는 코드로 손석희 앵커의 
 예) "오늘은 기분 좋은 날입~" 이렇게 끊김
 
        python -m audio.silence --audio_pattern "./datasets/son/audio/*.wav" --method=pydub
+
+
+### 2-2. 데이터 프로세싱
+
+데이터 프로세싱과정은 다음과 같이 이루어집니다.
+```
+Step1: 오디오 파일을 문장별로 자르기.
+Step2: 잘라진 오디오 파일에 음성인식하기
+```
+
+0. 오디오 파일과 해당 오디오의 대본을 매칭시키려면 구글의 도움을 받아야합니다. ([Google Speech Recognition API](https://cloud.google.com/speech/) 사용 예정)
+
+해당 api를 사용하려면 credential.json이 필요합니다. 받는방법은 다음 링크와 같습니다.[(클릭)](https://developers.google.com/identity/protocols/application-default-credentials).
+credential.json을 받아온 후에는 다음과 같이 등록을 해줍니다. 
+
+       export GOOGLE_APPLICATION_CREDENTIALS="나의 CREDENTIALS.json"
 
 3. By using [Google Speech Recognition API](https://cloud.google.com/speech/), we predict sentences for all segmented audios.
 

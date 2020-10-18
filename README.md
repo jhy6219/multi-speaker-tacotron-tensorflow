@@ -92,8 +92,24 @@ credential.json을 받아온 후에는 다음과 같이 등록을 해줍니다.
 이렇게 해서 아래 과정으로 학습을 시켜주면 결과가 좋지 못합니다. 왜냐하면 데이터 자체가 지금 양질의 정확한 데이터가 아니기때문입니다. 
 따라서 5과정을 하기전에 일일이 듣고 문장이 완벽하게 끝나지 않은 음성파일은 제거하고 제대로 된 음성파일의 경우에는 음성인식의 결과를 고쳐주어야합니다. 띄어쓰기와 인식이 제대로 되지 않은 부분이 상당히 많습니다. 그러나 이 음성파일은 도합 30시간이 넘어서 저는 도저히 엄두가 나지않아 끝까지 처리하지 못했습니다.
 
+### 3.1 모델 설명
 
-### 3. 모델 학습
+![슬라이드11](https://user-images.githubusercontent.com/47768004/96369584-ee417a80-1195-11eb-9872-077346e6e500.jpg)
+![슬라이드12](https://user-images.githubusercontent.com/47768004/96369589-f1d50180-1195-11eb-98cf-cd3527d8eb3b.jpg)
+![슬라이드13](https://user-images.githubusercontent.com/47768004/96369591-f39ec500-1195-11eb-9e0c-6eb139d5cf7c.jpg)
+![슬라이드14](https://user-images.githubusercontent.com/47768004/96369593-f699b580-1195-11eb-9acf-026020d99b0a.jpg)
+![슬라이드16](https://user-images.githubusercontent.com/47768004/96369599-fc8f9680-1195-11eb-9199-734e3c8d0911.jpg)
+![슬라이드17](https://user-images.githubusercontent.com/47768004/96369602-ff8a8700-1195-11eb-8981-91fc72ae38e8.jpg)
+![슬라이드18](https://user-images.githubusercontent.com/47768004/96369608-0c0edf80-1196-11eb-98bd-38244848d9e0.jpg)
+![슬라이드20](https://user-images.githubusercontent.com/47768004/96369614-0fa26680-1196-11eb-991e-23253ffb4226.jpg)
+![슬라이드21](https://user-images.githubusercontent.com/47768004/96369615-116c2a00-1196-11eb-8a12-464649b7edd8.jpg)
+![슬라이드22](https://user-images.githubusercontent.com/47768004/96369617-1630de00-1196-11eb-9507-fff528cfbc03.jpg)
+![슬라이드24](https://user-images.githubusercontent.com/47768004/96369622-19c46500-1196-11eb-8ac5-1a2352f6e31a.jpg)
+![슬라이드25](https://user-images.githubusercontent.com/47768004/96369625-1b8e2880-1196-11eb-817e-84cb28cefd67.jpg)
+![슬라이드27](https://user-images.githubusercontent.com/47768004/96369627-1df08280-1196-11eb-8160-9132cfdf66b5.jpg)
+
+
+### 3.2 모델 학습
 다음의 코드로 모델을 학습시킬 수 있습니다.
 모델의 중요한 하이퍼 파라미터는 `hparams.py`에 정의되어 있습니다.
 
@@ -101,9 +117,12 @@ credential.json을 받아온 후에는 다음과 같이 등록을 해줍니다.
     python train.py --data_path=datasets/son --initialize_path=PATH_TO_CHECKPOINT # 진행하던걸 이어서 진행시켜주고 싶을때
 
 
+
+
 ## 태훈님의 결과를 첨부드리면 다음과 같습니다.
 
-Training attention on single speaker model:
+
+Training attention on single speaker model): 
 
 ![model](./assets/attention_single_speaker.gif)
 

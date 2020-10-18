@@ -116,11 +116,21 @@ credential.json을 받아온 후에는 다음과 같이 등록을 해줍니다.
     python train.py --data_path=datasets/son
     python train.py --data_path=datasets/son --initialize_path=PATH_TO_CHECKPOINT # 진행하던걸 이어서 진행시켜주고 싶을때
 
+### 3.3 학습  결과
+
+![슬라이드28](https://user-images.githubusercontent.com/47768004/96369661-5001e480-1196-11eb-8ec5-cc0a3789aff2.jpg)
+
+이상적인 어텐션은 우상향으로 일직선으로 나타는 것인데, 학습을 진행해도 그러한 형식은 나타나지 않는 것으로 보였습니다.
+
+![슬라이드29](https://user-images.githubusercontent.com/47768004/96369663-51331180-1196-11eb-8f8a-8818724df4db.jpg)
+![슬라이드30](https://user-images.githubusercontent.com/47768004/96369666-52fcd500-1196-11eb-9003-81873cc15f52.jpg)
+![슬라이드33](https://user-images.githubusercontent.com/47768004/96369671-57c18900-1196-11eb-9b26-9f6289072c3d.jpg)
 
 
 
-## 태훈님의 결과를 첨부드리면 다음과 같습니다.
+### 모범 결과
 
+태훈님의 결과를 첨부드리면 다음과 같습니다. 학습이 진행될수록 플롯이 우상향으로 일직선으로 이상적인 어텐션을 보입니다.
 
 Training attention on single speaker model): 
 
